@@ -1,9 +1,11 @@
+import torch
 import argparse
 from pathlib import Path
 from ultralytics import YOLO
 
 
 def parse_opt():
+    print("CUDA Available:", torch.cuda.is_available())
     parser = argparse.ArgumentParser()
     parser.add_argument('--data', type=str, default='dataset/data.yaml', help='Path to data.yaml')
     parser.add_argument('--model', type=str, default='yolov8n.pt', help='YOLOv8 model to use')
@@ -29,7 +31,7 @@ def main(opt):
         batch=opt.batch,
         project=opt.output,
         name='.',
-        device=0
+        device=0 if torch.cuda.is_available() else 'cpu'
     )
 
     # Move final best weights as yolov8n.pt inside output directory
