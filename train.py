@@ -5,7 +5,6 @@ from ultralytics import YOLO
 
 
 def parse_opt():
-    print("CUDA Available:", torch.cuda.is_available())
     parser = argparse.ArgumentParser()
     parser.add_argument('--data', type=str, default='dataset/data.yaml', help='Path to data.yaml')
     parser.add_argument('--model', type=str, default='yolov8n.pt', help='YOLOv8 model to use')
@@ -19,6 +18,10 @@ def parse_opt():
 def main(opt):
     print(f'Training {opt.model} on {opt.data}')
 
+    cuda_available = torch.cuda.is_available()
+    device = 'cuda' if cuda_available else 'cpu'
+    print("CUDA Available:", cuda_available)
+
     # Make sure output folder exists
     Path(opt.output).mkdir(parents=True, exist_ok=True)
 
@@ -31,7 +34,7 @@ def main(opt):
         batch=opt.batch,
         project=opt.output,
         name='.',
-        device=0 if torch.cuda.is_available() else 'cpu'
+        device=device
     )
 
     # Move final best weights as yolov8n.pt inside output directory
