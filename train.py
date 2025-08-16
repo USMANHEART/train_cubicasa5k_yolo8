@@ -34,7 +34,9 @@ def main(opt):
         batch=opt.batch,
         project=opt.output,
         name='.',
-        device=device
+        device=device,
+        workers=0,
+        amp=False
     )
 
     # Move final best weights as yolov8n.pt inside output directory
