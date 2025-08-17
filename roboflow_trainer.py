@@ -61,7 +61,7 @@ def train_model(paths: dict):
     print("Starting training...")
     lr = 1e-4
     epochs = 15
-    batch_size = 1
+    batch_size = 2
     grad_accum_steps = 16 # (1 * 16 = effective batch size of 16)
     if isfile(checkpoint):
         print("Resuming training from checkpoint...", output_dir)
