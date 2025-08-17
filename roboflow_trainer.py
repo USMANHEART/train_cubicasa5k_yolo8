@@ -46,8 +46,8 @@ def train_model(paths: dict):
     """Trains RF-DETR on the dataset."""
     dataset_dir: Path = paths["coco"]
     # project_dir: Path = paths["dir"]
-    output_dir: Path = paths["output"]
-    checkpoint = join(output_dir, "checkpoint_best_total.pth")
+    # output_dir: Path = paths["output"]
+    # checkpoint = join(output_dir, "checkpoint_best_total.pth")
     print("train model dataset at:", dataset_dir)
     print("Initializing RF-DETR model...")
     model = RFDETRBase()
@@ -65,14 +65,14 @@ def train_model(paths: dict):
     _grad_accum_steps = 16 # (1 * 16 = effective batch size of 16)
     model.train(
         dataset_dir=str(dataset_dir),
-        output_dir=str(output_dir),
+        # output_dir=str(output_dir),
         epochs=_epochs,
         batch_size=_batch_size,
         grad_accum_steps=_grad_accum_steps,
         lr=_lr,
     )
 
-    print(f"Training finished. Model checkpoints saved in: {output_dir}")
+    # print(f"Training finished. Model checkpoints saved in: {output_dir}")
 
 
 def main():
