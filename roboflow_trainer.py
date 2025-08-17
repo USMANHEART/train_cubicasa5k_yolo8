@@ -64,6 +64,7 @@ def train_model(paths: dict):
     batch_size = 1
     grad_accum_steps = 16 # (1 * 16 = effective batch size of 16)
     if isfile(checkpoint):
+        print("Resuming training from checkpoint...", output_dir)
         model.train(
             dataset_dir=str(dataset_dir),
             output_dir=str(output_dir),
@@ -74,6 +75,7 @@ def train_model(paths: dict):
             resume=str(checkpoint)
         )
     else:
+        print("Creating checkpoint...", output_dir)
         model.train(
             dataset_dir=str(dataset_dir),
             output_dir=str(output_dir),
