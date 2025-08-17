@@ -58,18 +58,25 @@ def train_model(paths: dict):
     print("train model dataset at:", dataset_dir)
     print("Initializing RF-DETR model...")
     model = RFDETRBase()
+    history = []
+
+    def callback2(data):
+        history.append(data)
+
+    model.callbacks["on_fit_epoch_end"].append(callback2)
 
     print("Starting training...")
-    model.train(
-        dataset_dir=str(dataset_dir),
-        epochs=EPOCHS,
-        batch_size=BATCH_SIZE,
-        # grad_accum_steps=GRAD_ACCUM_STEPS,
-        lr=LR,
-        output_dir=str(output_dir),
-        device=DEVICE,
-        early_stopping=EARLY_STOPPING
-    )
+    # model.train(
+    #     dataset_dir=str(dataset_dir),
+    #     epochs=EPOCHS,
+    #     batch_size=BATCH_SIZE,
+    #     # grad_accum_steps=GRAD_ACCUM_STEPS,
+    #     lr=LR,
+    #     output_dir=str(output_dir),
+    #     device=DEVICE,
+    #     early_stopping=EARLY_STOPPING
+    # )
+    model.train(dataset_dir=str(dataset_dir), epochs=15, batch_size=16, lr=1e-4)
     print(f"Training finished. Model checkpoints saved in: {output_dir}")
 
 
