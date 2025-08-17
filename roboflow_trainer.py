@@ -9,11 +9,11 @@ PROJECT_NAME = "cubicasa5k-2-qpmsa-gbbqv"
 VERSION = "2"
 
 
+LR = 1e-4
 EPOCHS = 50
 BATCH_SIZE = 4
+DEVICE = "cuda"
 GRAD_ACCUM_STEPS = 4
-LR = 1e-4
-DEVICE = "cuda"  # Change to "cpu" if no GPU
 EARLY_STOPPING = True
 
 

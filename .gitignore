@@ -56,6 +56,8 @@ cover/
 *.pot
 
 cubicasa5k-*
+*.pt
+*.pth
 
 # Django stuff:
 *.log
