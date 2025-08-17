@@ -1,2 +1,2 @@
-ultralytics~=8.3.179
+rfdetr==1.2.1
 roboflow~=1.2.6
