@@ -60,30 +60,30 @@ def train_model(paths: dict):
 
     print("Starting training...")
     lr = 1e-4
-    epochs = 15
+    epochs = 50
     batch_size = 1
     grad_accum_steps = 16 # (1 * 16 = effective batch size of 16)
-    if isfile(checkpoint):
-        print("Resuming training from checkpoint...", output_dir)
-        model.train(
-            dataset_dir=str(dataset_dir),
-            output_dir=str(output_dir),
-            epochs=epochs,
-            batch_size=batch_size,
-            grad_accum_steps=grad_accum_steps,
-            lr=lr,
-            resume=str(checkpoint)
-        )
-    else:
-        print("Creating checkpoint...", output_dir)
-        model.train(
-            dataset_dir=str(dataset_dir),
-            output_dir=str(output_dir),
-            epochs=epochs,
-            batch_size=batch_size,
-            grad_accum_steps=grad_accum_steps,
-            lr=lr,
-        )
+    # if isfile(checkpoint):
+    #     print("Resuming training from checkpoint...", output_dir)
+    model.train(
+        dataset_dir=str(dataset_dir),
+        output_dir=str(output_dir),
+        epochs=epochs,
+        batch_size=batch_size,
+        grad_accum_steps=grad_accum_steps,
+        lr=lr,
+        resume=str(checkpoint)
+    )
+    # else:
+    #     print("Creating checkpoint...", output_dir)
+    #     model.train(
+    #         dataset_dir=str(dataset_dir),
+    #         output_dir=str(output_dir),
+    #         epochs=epochs,
+    #         batch_size=batch_size,
+    #         grad_accum_steps=grad_accum_steps,
+    #         lr=lr,
+    #     )
 
     print(f"Training finished. Model checkpoints saved in: {output_dir}")
 
