@@ -24,7 +24,7 @@ def main():
     url = "https://showlifecc-oss.eggrj.com/national_house/北京市-北京市-四合院-7室5厅3卫-387.54㎡-ff808081965b8a890196b9bf5f8c0b9c-户型图.jpg"
     image_file = Image.open(BytesIO(requests.get(url).content))
 
-    model = RFDETRBase(pretrain_weights=weights_path)
+    model = RFDETRBase(pretrain_weights=str(weights_path))
 
     # Run prediction
     results = model.predict(image_file, threshold=0.5)
