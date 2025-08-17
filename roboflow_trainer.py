@@ -1,7 +1,7 @@
 from pathlib import Path
+from os.path import join
 from roboflow import Roboflow
 from rfdetr import RFDETRBase
-from os.path import join, exists
 
 # 1️⃣ Configuration
 API_KEY = "zxp6OFr5Vhj6Qa6JUjQi"
@@ -10,8 +10,8 @@ VERSION = "2"
 
 
 LR = 1e-4
-EPOCHS = 50
-BATCH_SIZE = 4
+EPOCHS = 15
+BATCH_SIZE = 14
 DEVICE = "cuda"
 GRAD_ACCUM_STEPS = 4
 EARLY_STOPPING = True
@@ -64,7 +64,7 @@ def train_model(paths: dict):
         dataset_dir=str(dataset_dir),
         epochs=EPOCHS,
         batch_size=BATCH_SIZE,
-        grad_accum_steps=GRAD_ACCUM_STEPS,
+        # grad_accum_steps=GRAD_ACCUM_STEPS,
         lr=LR,
         output_dir=str(output_dir),
         device=DEVICE,
