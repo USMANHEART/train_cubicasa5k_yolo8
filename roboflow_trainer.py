@@ -45,7 +45,7 @@ def download_dataset(paths: dict):
 def train_model(paths: dict):
     """Trains RF-DETR on the dataset."""
     dataset_dir: Path = paths["coco"]
-    project_dir: Path = paths["dir"]
+    # project_dir: Path = paths["dir"]
     output_dir: Path = paths["output"]
     checkpoint = join(output_dir, "checkpoint.pth")
     print("train model dataset at:", dataset_dir)
