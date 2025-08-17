@@ -59,31 +59,18 @@ def train_model(paths: dict):
     model.callbacks["on_fit_epoch_end"].append(callback2)
 
     print("Starting training...")
-    lr = 1e-4
-    epochs = 50
-    batch_size = 1
-    grad_accum_steps = 16 # (1 * 16 = effective batch size of 16)
-    # if isfile(checkpoint):
-    #     print("Resuming training from checkpoint...", output_dir)
+    _lr = 1e-4
+    _epochs = 50
+    _batch_size = 1
+    _grad_accum_steps = 16 # (1 * 16 = effective batch size of 16)
     model.train(
         dataset_dir=str(dataset_dir),
         output_dir=str(output_dir),
-        epochs=epochs,
-        batch_size=batch_size,
-        grad_accum_steps=grad_accum_steps,
-        lr=lr,
-        resume=str(checkpoint)
+        epochs=_epochs,
+        batch_size=_batch_size,
+        grad_accum_steps=_grad_accum_steps,
+        lr=_lr,
     )
-    # else:
-    #     print("Creating checkpoint...", output_dir)
-    #     model.train(
-    #         dataset_dir=str(dataset_dir),
-    #         output_dir=str(output_dir),
-    #         epochs=epochs,
-    #         batch_size=batch_size,
-    #         grad_accum_steps=grad_accum_steps,
-    #         lr=lr,
-    #     )
 
     print(f"Training finished. Model checkpoints saved in: {output_dir}")
 
