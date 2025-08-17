@@ -1,5 +1,5 @@
 from pathlib import Path
-from os.path import join
+from os.path import join, isfile
 from roboflow import Roboflow
 from rfdetr import RFDETRBase
 
@@ -46,7 +46,7 @@ def train_model(paths: dict):
     """Trains RF-DETR on the dataset."""
     dataset_dir: Path = paths["coco"]
     project_dir: Path = paths["dir"]
-    # output_dir: Path = paths["output"]
+    output_dir: Path = paths["output"]
     checkpoint = join(project_dir, "output", "checkpoint.pth")
     print("train model dataset at:", dataset_dir)
     print("Initializing RF-DETR model...")
@@ -59,17 +59,31 @@ def train_model(paths: dict):
     model.callbacks["on_fit_epoch_end"].append(callback2)
 
     print("Starting training...")
-    model.train(
-        dataset_dir=str(dataset_dir),
-        # output_dir=str(output_dir),
-        epochs=50,
-        batch_size=1,  # will fit your GPU
-        grad_accum_steps=16,  # (1 * 16 = effective batch size of 16)
-        lr=1e-4,
-        resume=str(checkpoint)
-    )
+    lr = 1e-4
+    epochs = 50
+    batch_size = 1
+    grad_accum_steps = 16 # (1 * 16 = effective batch size of 16)
+    if isfile(checkpoint):
+        model.train(
+            dataset_dir=str(dataset_dir),
+            output_dir=str(output_dir),
+            epochs=epochs,
+            batch_size=batch_size,
+            grad_accum_steps=grad_accum_steps,
+            lr=lr,
+            resume=str(checkpoint)
+        )
+    else:
+        model.train(
+            dataset_dir=str(dataset_dir),
+            output_dir=str(output_dir),
+            epochs=epochs,
+            batch_size=batch_size,
+            grad_accum_steps=grad_accum_steps,
+            lr=lr,
+        )
 
-    # print(f"Training finished. Model checkpoints saved in: {output_dir}")
+    print(f"Training finished. Model checkpoints saved in: {output_dir}")
 
 
 def main():
